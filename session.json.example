@@ -1,0 +1,114 @@
+{
+  "displays": [
+    {
+      "position": "left",
+      "bottom": "1200",
+      "hight": "1200",
+      "left": "40",
+      "right": "1881",
+      "top": "102",
+      "width": "1881"
+    },
+    {
+      "position": "right",
+      "bottom": "1200",
+      "hight": "1200",
+      "left": "1921",
+      "right": "3840",
+      "top": "75",
+      "width": "1920"
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "Home",
+      "apps": [
+        {
+          "command": "/home/karl/bin/vpnup",
+          "run_in_background": true
+        },
+        {
+          "command": "/home/karl/bin/backup-sublime-session",
+          "run_in_background": true
+        },
+        {
+          "command": "/usr/bin/subl",
+          "args": [
+            "--new-window",
+            "/home/karl/Projects/K-and-R/gnome-desktop-session-restore/",
+            "/home/karl/.gnome-desktop-session.json"
+          ],
+          "position": "4810x82",
+          "size": "960x1163",
+          "maximized": false
+        },
+        {
+          "command": "/usr/bin/gnome-terminal"
+        },
+        {
+          "command": "/usr/bin/brave-browser",
+          "args": [
+            "--new-window",
+            "mail.google.com",
+            "calendar.google.com",
+            "contacts.google.com",
+            "hangouts.google.com"
+          ],
+          "sticky": true,
+          "position": "54x109",
+          "size": "1280x720",
+          "maximized": false
+        },
+        {
+          "command": "/usr/bin/slack",
+          "startup_delay": 5,
+          "sticky": true,
+          "display": "right",
+          "position": "0x0",
+          "size": "960x1163",
+          "maximized": false
+        }
+      ]
+    },
+    {
+      "name": "MyClientProject",
+      "apps": [
+        {
+          "command": "/usr/bin/brave-browser",
+          "args": [
+            "--new-window",
+            "my-client-project.kandrsoft.dev"
+          ],
+          "display": "right",
+          "maximized": true
+        },
+        {
+          "command": "/usr/bin/subl",
+          "args": [
+            "--new-window",
+            "/home/karl/Projects/MyClient/MyClientProject"
+          ],
+          "display: "left",
+          "maximized": true
+        },
+        {
+          "command": "/usr/bin/gnome-terminal",
+          "args": [
+            "--window",
+            "--working-directory=/home/karl/Projects/MyClient/MyClientProject"
+          ],
+          "display: "left"
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "apps": [
+        {
+          "command": "/usr/share/spotify/spotify"
+          "display": "right",
+        }
+      ]
+    }
+  ]
+}
