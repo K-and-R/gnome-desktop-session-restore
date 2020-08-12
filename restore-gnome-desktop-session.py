@@ -152,7 +152,7 @@ def parse_invocation_args():
     nargs='?',
     type=argparse.FileType('r'),
     help='the session file from which to restore (default: session.json)',
-    default='~/.gnome-desktop-session.json'
+    default=os.path.expanduser('~/.gnome-desktop-session.json')
     )
   return parser.parse_args()
 
@@ -231,7 +231,6 @@ def workspaces():
   return __workspaces
 
 ### MAIN
-
 # Process each defined workspace
 print('Loading session from '+args().session_file.name)
 for workspace_index, workspace in enumerate(workspaces()):
