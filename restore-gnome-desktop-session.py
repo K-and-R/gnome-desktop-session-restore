@@ -113,6 +113,7 @@ def get_window_geometry(window_id, app):
   if app.get('position'):
     left, top = app.get('position').split('x')
   if app.get('display'):
+    display = get_display_by_position(app.get('display'))
     if app.get('position'):
       # If we have a display and position, set that position
       # relative to that display
@@ -120,7 +121,7 @@ def get_window_geometry(window_id, app):
       top  = int(top)  + int(display.get('top'))
     else:
       # If no position, center on the display
-      top, left = center_on_display(width, height, get_display_by_position(app.get('display')))
+      top, left = center_on_display(width, height, display)
   if args().verbose > 1:
     print('positioning window  (left,top,width,height): '+str(left)+','+str(top)+','+str(width)+','+str(height))
   return [str(gravity), str(left), str(top), str(width), str(height)]
