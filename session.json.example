@@ -88,7 +88,7 @@
             "--new-window",
             "/home/karl/Projects/MyClient/MyClientProject"
           ],
-          "display: "left",
+          "display": "left",
           "maximized": true
         },
         {
@@ -97,7 +97,7 @@
             "--window",
             "--working-directory=/home/karl/Projects/MyClient/MyClientProject"
           ],
-          "display: "left"
+          "display": "left"
         }
       ]
     },
@@ -105,8 +105,8 @@
       "name": "Music",
       "apps": [
         {
-          "command": "/usr/share/spotify/spotify"
-          "display": "right",
+          "command": "/usr/share/spotify/spotify",
+          "display": "right"
         }
       ]
     }
