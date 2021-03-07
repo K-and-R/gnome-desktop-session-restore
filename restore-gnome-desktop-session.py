@@ -91,14 +91,16 @@ def get_process_output(cmd):
 
 def get_window_geometry(window_id, app):
   if args().verbose > 1:
-    print('get_window_geometry()')
+    print('get_window_geometry() for window_id '+window_id)
   # window = get_process_output(['wmctrl', '-lG', '|', 'grep', window_id])
   proc_output = get_process_output(['wmctrl', '-lG'])
+  if args().verbose > 2:
+    print( u' '.join(('Raw proc_output: ', proc_output)).encode('utf-8').strip())
   for line in proc_output.splitlines():
     if line.find(window_id) == 0:
       window = line
   if args().verbose > 2:
-    print('Raw response: '+window)
+    print( u' '.join(('Process window: ', window)).encode('utf-8').strip())
   window = window.split()
   if args().verbose > 2:
     print('Windows gemometry (left,top,width,height): '+window[2]+','+window[3]+','+window[4]+','+window[5])
@@ -172,8 +174,7 @@ def set_up_workspace(workspace, workspace_index):
     for app in apps:
       cmd = app.get('command')
       cmd_args = app.get('args', [])
-      app_command = cmd
-      app_command = app_command + ' ' + ' '.join(cmd_args)
+      app_command = app_command_with_args(app)
       if args().verbose > 0:
         print('App Command: ' + app_command)
       current_windows = get_current_window_list()
@@ -200,6 +201,9 @@ def set_up_workspace(workspace, workspace_index):
   if args().verbose > 0:
     print('')
 
+def app_command_with_args(app):
+  return app.get('command') + ' ' + ' '.join(app.get('args', []))
+
 def wait_for_new_windows(current_windows,app):
   if args().verbose > 1:
     print('wait_for_new_windows()')
@@ -210,12 +214,13 @@ def wait_for_new_windows(current_windows,app):
     if args().verbose > 1:
     	print('App runs in background, no new windows expected.')
     return new_windows # No new windows for this app
-  time.sleep(app.get('startup_delay',2)) # wait for window to open
+  time.sleep(app.get('startup_delay',4)) # wait for window to open
   new_windows = find_new_windows(current_windows)
   while len(new_windows) == 0:
     sleep_cycles += 1
     if sleep_cycles >= 5:
       print('Max sleep cycles reaching waiting for new windows.')
+      print('Command: {}'.format(app_command_with_args(app)))
       print('Current windows: {}'.format(current_windows))
       print('New windows: {}'.format(new_windows))
       sys.exit()
@@ -234,7 +239,13 @@ def workspaces():
 ### MAIN
 # Process each defined workspace
 print('Loading session from '+args().session_file.name)
-for workspace_index, workspace in enumerate(workspaces()):
+# Wait for any other starting processes to finish before processing the session
+time.sleep(10)
+workspace_index = 0
+for _index, workspace in enumerate(workspaces()):
+  workspace_index += 1
+  if workspace.get('disabled'):
+    continue
   set_up_workspace(workspace, workspace_index)
 
 # Switch back to the first workspace
